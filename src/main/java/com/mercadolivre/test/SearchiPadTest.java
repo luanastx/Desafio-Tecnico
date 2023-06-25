@@ -24,18 +24,26 @@ public class SearchiPadTest {
 
     @Test
     public void searchiPad() {
+        // Cenário: Pesquisar iPad no site do Mercado livre e verificar se o produto é exibido nos resultados
+
+        // Abrir o site do Mercado livre
         driver.get("https://www.mercadolivre.com.br");
 
+        // Localizar o campo de pesquisa e inserir a palavra-chave "iPad"
         WebElement search = driver.findElement(By.id("cb1-edit"));
         search.clear();
         search.sendKeys("iPad");
         search.submit();
 
         try {
+            // Localizar o elemento que contém o texto "iPad" nos resultados da pesquisa
             WebElement result = driver.findElement(By.xpath("//h2[contains(text(), 'iPad')]"));
             String product = result.getText();
+
+            // Verificar se o produto encontrado é realmente um iPad
             Assert.assertTrue("The product found is not an iPad.", product.contains("iPad"));
         } catch (NoSuchElementException e) {
+            // Caso nenhum resultado seja encontrado, o teste falha
             Assert.fail("No results found for iPad.");
         }
 
@@ -43,6 +51,8 @@ public class SearchiPadTest {
     }
 
     @After
+
+    // Fechar o navegador após a execução do teste
     public void close() {
         driver.quit();
     }
