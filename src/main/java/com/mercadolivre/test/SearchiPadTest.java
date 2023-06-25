@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,14 +26,17 @@ public class SearchiPadTest {
         driver.get("https://www.mercadolivre.com.br");
 
         WebElement search = driver.findElement(By.id("cb1-edit"));
+        search.clear();
         search.sendKeys("iPad");
         search.submit();
 
-        WebElement result = driver.findElement(By.xpath("//h2[contains(text(), 'iPad')]"));
-        Assert.assertTrue("No results found.", result.isDisplayed());
-
-        String product = result.getText();
-        Assert.assertTrue("The product found is not an iPad.", product.contains("iPad"));
+        try {
+            WebElement result = driver.findElement(By.xpath("//h2[contains(text(), 'iPad')]"));
+            String product = result.getText();
+            Assert.assertTrue("The product found is not an iPad.", product.contains("iPad"));
+        } catch (NoSuchElementException e) {
+            Assert.fail("No results found for iPad.");
+        }
 
         System.out.println("The iPad search was successfully validated.");
     }
