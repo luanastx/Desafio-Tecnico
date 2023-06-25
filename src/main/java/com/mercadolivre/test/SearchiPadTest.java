@@ -13,10 +13,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class SearchiPadTest {
 
     private WebDriver driver;
+    private static final String CHROME_DRIVER_PATH = "C:\\Users\\luana\\OneDrive\\Área de Trabalho\\chromedriver_win32\\chromedriver.exe";
 
     @Before
     public void setting() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\luana\\OneDrive\\Área de Trabalho\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
